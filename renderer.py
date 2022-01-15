@@ -321,7 +321,13 @@ class Renderer():
         print((R0 < .4 and G0 > .9 and B0 < .1))
         print("---")
         
-        if not (R0 < .4 and G0 > .9 and B0 < .1):
+        if (R0 < .4 and G0 > .9 and B0 < .1):
+            R0 = 0
+            G0 = 1
+            B0 = 0
+            R2 = 0
+            G2 = 1
+            B2 = 0
             if w * h / (self.CANVAS_WIDTH**2) > 0.1:
                 brush = self.brush_large_pure
             else:
