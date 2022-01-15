@@ -72,6 +72,9 @@ class Renderer():
         if self.canvas_color == 'white':
             self.canvas = np.ones(
                 [self.CANVAS_WIDTH, self.CANVAS_WIDTH, 3]).astype('float32')
+        elif self.canvas_color == "green":
+            self.canvas = np.full(
+                [self.CANVAS_WIDTH, self.CANVAS_WIDTH, 3],[0,1,0]).astype('float32')
         else:
             self.canvas = np.zeros(
                 [self.CANVAS_WIDTH, self.CANVAS_WIDTH, 3]).astype('float32')
