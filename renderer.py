@@ -324,7 +324,7 @@ class Renderer():
         print(R0,G0,B0)
         print(R2,G2,B2)
         
-        if (R0 < .4 and G0 > .9 and B0 < .1):
+        if (self.canvas_color == "green" and R0 < .4 and G0 > .9 and B0 < .1):
             R0 = 0
             G0 = 1
             B0 = 0
@@ -335,7 +335,18 @@ class Renderer():
                 brush = self.brush_large_pure
             else:
                 brush = self.brush_small_pure
-        else:        
+        elif (self.canvas_color == "white" and R0 > .99 and G0 > .99 and B0 > .99):
+            R0 = 1
+            G0 = 1
+            B0 = 1
+            R2 = 1
+            G2 = 1
+            B2 = 1
+            if w * h / (self.CANVAS_WIDTH**2) > 0.1:
+                brush = self.brush_large_pure
+            else:
+                brush = self.brush_small_pure
+        else:
             if w * h / (self.CANVAS_WIDTH**2) > 0.1:
                 if h > w:
                     brush = self.brush_large_vertical
