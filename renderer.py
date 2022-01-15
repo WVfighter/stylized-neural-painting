@@ -321,12 +321,6 @@ class Renderer():
         h = (int)(1 + h * self.CANVAS_WIDTH)
         theta = np.pi*theta
         
-        print("colors:")
-        print(R0,G0,B0)
-        print(R2,G2,B2)
-        print((R0 < .4 and G0 > .9 and B0 < .1))
-        print("---")
-        
         if (R0 < .4 and G0 > .9 and B0 < .1):
             R0 = 0
             G0 = 1
