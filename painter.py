@@ -20,7 +20,7 @@ class PainterBase():
         self.args = args
 
         self.rderr = renderer.Renderer(renderer=args.renderer,
-                                       CANVAS_WIDTH=args.canvas_size, canvas_color=args.canvas_color)
+                                       CANVAS_WIDTH=args.canvas_size,CANVAS_HEIGHT=args.canvas_size, canvas_color=args.canvas_color)
 
         # define G
         self.net_G = define_G(rdrr=self.rderr, netG=args.net_G).to(device)
