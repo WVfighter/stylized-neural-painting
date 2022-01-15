@@ -314,29 +314,30 @@ class Renderer():
         print("colors:")
         print(R0,G0,B0)
         print(R2,G2,B2)
+        print((R0 < .4 and G0 > .9 and B0 < .1))
         print("---")
-
-        if w * h / (self.CANVAS_WIDTH**2) > 0.1:
-            if h > w:
-                brush = self.brush_large_vertical
+        if not (R0 < .4 and G0 > .9 and B0 < .1):
+            if w * h / (self.CANVAS_WIDTH**2) > 0.1:
+                if h > w:
+                    brush = self.brush_large_vertical
+                else:
+                    brush = self.brush_large_horizontal
             else:
-                brush = self.brush_large_horizontal
-        else:
-            if h > w:
-                brush = self.brush_small_vertical
-            else:
-                brush = self.brush_small_horizontal
-        self.foreground, self.stroke_alpha_map = utils.create_transformed_brush(
-            brush, self.CANVAS_WIDTH, self.CANVAS_WIDTH,
-            x0, y0, w, h, theta, R0, G0, B0, R2, G2, B2)
+                if h > w:
+                    brush = self.brush_small_vertical
+                else:
+                    brush = self.brush_small_horizontal
+            self.foreground, self.stroke_alpha_map = utils.create_transformed_brush(
+                brush, self.CANVAS_WIDTH, self.CANVAS_WIDTH,
+                x0, y0, w, h, theta, R0, G0, B0, R2, G2, B2)
 
-        if not self.train:
-            self.foreground = cv2.dilate(self.foreground, np.ones([2, 2]))
-            self.stroke_alpha_map = cv2.erode(self.stroke_alpha_map, np.ones([2, 2]))
+            if not self.train:
+                self.foreground = cv2.dilate(self.foreground, np.ones([2, 2]))
+                self.stroke_alpha_map = cv2.erode(self.stroke_alpha_map, np.ones([2, 2]))
 
-        self.foreground = np.array(self.foreground, dtype=np.float32)/255.
-        self.stroke_alpha_map = np.array(self.stroke_alpha_map, dtype=np.float32)/255.
-        self.canvas = self._update_canvas()
+            self.foreground = np.array(self.foreground, dtype=np.float32)/255.
+            self.stroke_alpha_map = np.array(self.stroke_alpha_map, dtype=np.float32)/255.
+            self.canvas = self._update_canvas()
 
 
     def _update_canvas(self):
