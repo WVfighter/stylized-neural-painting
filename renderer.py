@@ -43,6 +43,10 @@ class Renderer():
             self.d_shape = 5
             self.d_color = 6
             self.d_alpha = 1
+            self.brush_small_pure = cv2.imread(
+                r'./brushes/brush_fromweb2_small_horizontal2.png', cv2.IMREAD_GRAYSCALE)
+            self.brush_large_pure = cv2.imread(
+                r'./brushes/brush_fromweb2_large_horizontal2.png', cv2.IMREAD_GRAYSCALE)
             self.brush_small_vertical = cv2.imread(
                 r'./brushes/brush_fromweb2_small_vertical.png', cv2.IMREAD_GRAYSCALE)
             self.brush_small_horizontal = cv2.imread(
@@ -316,7 +320,13 @@ class Renderer():
         print(R2,G2,B2)
         print((R0 < .4 and G0 > .9 and B0 < .1))
         print("---")
+        
         if not (R0 < .4 and G0 > .9 and B0 < .1):
+            if w * h / (self.CANVAS_WIDTH**2) > 0.1:
+                brush = self.brush_large_pure
+            else:
+                brush = self.brush_small_pure
+        else:        
             if w * h / (self.CANVAS_WIDTH**2) > 0.1:
                 if h > w:
                     brush = self.brush_large_vertical
@@ -327,17 +337,18 @@ class Renderer():
                     brush = self.brush_small_vertical
                 else:
                     brush = self.brush_small_horizontal
-            self.foreground, self.stroke_alpha_map = utils.create_transformed_brush(
-                brush, self.CANVAS_WIDTH, self.CANVAS_WIDTH,
-                x0, y0, w, h, theta, R0, G0, B0, R2, G2, B2)
+        
+        self.foreground, self.stroke_alpha_map = utils.create_transformed_brush(
+            brush, self.CANVAS_WIDTH, self.CANVAS_WIDTH,
+            x0, y0, w, h, theta, R0, G0, B0, R2, G2, B2)
 
-            if not self.train:
-                self.foreground = cv2.dilate(self.foreground, np.ones([2, 2]))
-                self.stroke_alpha_map = cv2.erode(self.stroke_alpha_map, np.ones([2, 2]))
+        if not self.train:
+            self.foreground = cv2.dilate(self.foreground, np.ones([2, 2]))
+            self.stroke_alpha_map = cv2.erode(self.stroke_alpha_map, np.ones([2, 2]))
 
-            self.foreground = np.array(self.foreground, dtype=np.float32)/255.
-            self.stroke_alpha_map = np.array(self.stroke_alpha_map, dtype=np.float32)/255.
-            self.canvas = self._update_canvas()
+        self.foreground = np.array(self.foreground, dtype=np.float32)/255.
+        self.stroke_alpha_map = np.array(self.stroke_alpha_map, dtype=np.float32)/255.
+        self.canvas = self._update_canvas()
 
 
     def _update_canvas(self):
