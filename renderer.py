@@ -335,7 +335,7 @@ class Renderer():
                 brush = self.brush_large_pure
             else:
                 brush = self.brush_small_pure
-        elif (self.canvas_color == "white" and R0 > .99 and G0 > .99 and B0 > .99):
+        elif (self.canvas_color == "white" and R0 > .95 and G0 > .95 and B0 > .95 and R2 > .95 and G2 > .95 and B2 > .95):
             R0 = 1
             G0 = 1
             B0 = 1
