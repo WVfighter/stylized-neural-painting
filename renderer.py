@@ -16,7 +16,7 @@ def _normalize(x, width):
 
 class Renderer():
 
-    def __init__(self, renderer='oilpaintbrush', CANVAS_WIDTH=128, train=False, canvas_color='black'):
+    def __init__(self, renderer='oilpaintbrush', CANVAS_WIDTH=128, CANVAS_HEIGHT=128, train=False, canvas_color='black'):
 
         self.CANVAS_WIDTH = CANVAS_WIDTH
         self.renderer = renderer
@@ -66,6 +66,9 @@ class Renderer():
                 % self.renderer)
 
     def create_empty_canvas(self):
+        print("empty canvas create")
+        print(self.canvas_color)
+        print(self.CANVAS_WIDTH)
         if self.canvas_color == 'white':
             self.canvas = np.ones(
                 [self.CANVAS_WIDTH, self.CANVAS_WIDTH, 3]).astype('float32')
